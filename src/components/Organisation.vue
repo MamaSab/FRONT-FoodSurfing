@@ -31,7 +31,7 @@
 </el-form>
 
 
-<router-link to="/">Retour</router-link>
+<router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
 
  </div>  
 </template>
@@ -61,10 +61,10 @@ export default {
   },
   // Fetches posts when the component is created.
   created() {
-    axios.get(`http://jsonplaceholder.typicode.com/posts`)
+    axios.get(`http://localhost:8000/themes`)
     .then(response => {
       // JSON responses are automatically parsed.
-      this.themes = response.data
+      this.themes = response.data 
     })
     .catch(e => {
       this.errors.push(e)

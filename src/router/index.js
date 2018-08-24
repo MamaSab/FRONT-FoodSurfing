@@ -22,8 +22,8 @@ export default new Router({
       path: '/participation',
       name: 'Participation',
       component: Participation,
-    }
+    },
 
-  
+
   ],
 });
