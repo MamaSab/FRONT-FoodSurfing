@@ -28,6 +28,8 @@
       type="datetime"
       placeholder="Select date and time">
     </el-date-picker>
+
+    <el-button type="primary" @click="onSubmit">Organiser</el-button>
 </el-form>
 
 
@@ -37,38 +39,35 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: 'Organisation',
+  name: "Organisation",
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      
+      msg: "Welcome to Your Vue.js App",
+
       form: {
         nom: null,
         prenom: null,
         theme: null,
         plat: null,
         lieu: null,
-        date: null,
+        date: null
       },
-      themes: [   
-
-]
-
-
+      themes: []
     };
   },
   // Fetches posts when the component is created.
-  created() {
-    axios.get(`http://localhost:8000/themes`)
-    .then(response => {
-      // JSON responses are automatically parsed.
-      this.themes = response.data 
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+  beforeCreate() {
+    axios
+      .get(`http://localhost:8000/themes`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.themes = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
 
     // async / await version (created() becomes async created())
     //
@@ -78,10 +77,21 @@ export default {
     // } catch (e) {
     //   this.errors.push(e)
     // }
-     }
+  },
+
+  methods: {
+    onSubmit() {
+      axios
+        .post(`http://localhost:8000/repas`, {
+          body: {}
+        })
+        .then(response => {console.log('repas créer')})
+        .catch(e => {
+         console.log(e)
+        });
+    }
+  }
 };
-
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
