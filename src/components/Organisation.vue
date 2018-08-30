@@ -1,21 +1,13 @@
 <template>
 <div>
 <el-form ref="form" :model="form" label-width="120px">
-  <el-form-item label="Votre nom">
-    <el-input v-model="form.nom"></el-input>
-  </el-form-item>
-
-
-  <el-form-item label="Votre prénom">
-    <el-input v-model="form.prenom"></el-input>
-  </el-form-item>
-
+  
    <el-select v-model="form.theme" placeholder="Select">
     <el-option
       v-for="theme in themes"
-      :key="theme.id"
-      :label="theme.nom_du_theme"
-      :value="theme.id">
+      :key="theme.idthemes"
+      :label="theme.nomTheme"
+      :value="theme.idthemes">
     </el-option>
   </el-select></br>
 
@@ -60,12 +52,12 @@ export default {
       msg: "Welcome to Your Vue.js App",
 
       form: {
-        nom: null,
-        prenom: null,
+      
         theme: null,
         plat: null,
         lieu: null,
-        date: null
+        date: null,
+        personne: 1,
       },
       themes: [],
 
@@ -95,6 +87,7 @@ export default {
       .then(response => {
         // JSON responses are automatically parsed.
         this.themes = response.data;
+        console.log(this.themes);
       })
       .catch(e => {
         this.errors.push(e);
@@ -112,11 +105,11 @@ export default {
 
   methods: {
     onSubmit() {
+      console.log(this.form);
       axios
-        .post(`http://localhost:8000/repas`, {
-          toto : this.form
-        })
-        .then(response => {console.log('repas créer')})
+        .post(`http://localhost:8000/repas`, this.form)
+        
+        .then(response => {console.log(response)})
         .catch(e => {
          console.log(e)
         });
