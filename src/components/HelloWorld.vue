@@ -1,8 +1,37 @@
 <template>
 <div>
+ 
+<el-row>
+  <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
+    <el-card :body-style="{ padding: '0px' }">
+      <img src="src\assets\13.png"><router-view/>
+      <div style="padding: 14px;">
+        <span>Yummy hamburger</span>
+        <div class="bottom clearfix">
+          <el-button type="text" class="button">Operating button</el-button>
+        </div>
+      </div>
+    </el-card>
+  </el-col>
+</el-row>
 
-<router-link to="/organisation">Organiser un Repas</router-link><br/>
-<router-link to="/participation">Participer à un Repas</router-link>
+<el-row :gutter="20">
+  <el-col :span="12">
+    <div img src="./assets/img/13.jpg">
+    <router-view/>
+    <router-link to="/organisation">Organiser un Repas</router-link><br/>
+    </div>
+    </el-col>
+  <el-col :span="12">
+    <div class="grid-content bg-purple">
+      <router-link to="/participation">Participer à un Repas</router-link>
+      </div>
+      </el-col>
+
+</el-row>
+
+
+
    <!-- <h1>{{msg}}</h1>
  v-model, pour lire et ecrire 
   <input type="text" v-model="msg"/>-->
@@ -11,18 +40,19 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: "Welcome to Your Vue.js App"
     };
-  },
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
@@ -35,5 +65,20 @@ li {
 }
 a {
   color: #42b983;
+}
+
+
+.bgimg1 {
+  background-image: 'url(\''+13.jpg'\')';
+}
+ .bg-purple {
+    background: #d3dce6;
+  }
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
 }
 </style>

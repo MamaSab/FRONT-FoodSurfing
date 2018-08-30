@@ -17,7 +17,7 @@
       :label="theme.nom_du_theme"
       :value="theme.id">
     </el-option>
-  </el-select>
+  </el-select></br>
 
   <el-input placeholder="Décrivez le plat que vous allez préparer" v-model="form.plat"></el-input>
 
@@ -28,9 +28,22 @@
       type="datetime"
       placeholder="Select date and time">
     </el-date-picker>
+    </br>
 
-    <el-button type="primary" @click="onSubmit">Organiser</el-button>
-</el-form>
+    Sélectionnez le nombre minimum de personnes souhaité :
+  <el-select v-model="value" placeholder="Select">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select></br>
+
+  Selectionnez le nombre maximum de personnes souhaité :
+    </br><el-button type="primary" @click="onSubmit">Organiser</el-button>
+</el-form></br>
+
 
 
 <router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
@@ -54,7 +67,25 @@ export default {
         lieu: null,
         date: null
       },
-      themes: []
+      themes: [],
+
+      options: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }, {
+          value: 'Option3',
+          label: 'Option3'
+        }, {
+          value: 'Option4',
+          label: 'Option4'
+        }, {
+          value: 'Option5',
+          label: 'Option5'
+        }],
+        value: ''
     };
   },
   // Fetches posts when the component is created.
@@ -83,7 +114,7 @@ export default {
     onSubmit() {
       axios
         .post(`http://localhost:8000/repas`, {
-          body: {}
+          toto : this.form
         })
         .then(response => {console.log('repas créer')})
         .catch(e => {
