@@ -5,6 +5,9 @@
 ## Build Setup
 
 ``` bash
+# Clone project from github
+git clone https://github.com/MamaSab/FRONT-FoodSurfing.git front-foodsurfing
+
 # install dependencies
 npm install
 
