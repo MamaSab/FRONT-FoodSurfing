@@ -1,40 +1,81 @@
 <template>
 <div>
-<el-form ref="form" :model="form" label-width="120px">
-  
-   <el-select v-model="form.theme" placeholder="Select">
+<ul>
+  <li v-for="item in minvalues">{{item}} </li>
+</ul>
+
+<ul>
+  <li v-for="item in maxvalues">{{item}} </li>
+</ul>
+
+
+<el-form ref="form" :model="form" label-width="300px">
+  <el-form-item label="Themes">
+   <el-select v-model="form.theme" placeholder="Choissisez votre theme">
     <el-option
       v-for="theme in themes"
       :key="theme.idthemes"
       :label="theme.nomTheme"
       :value="theme.idthemes">
     </el-option>
-  </el-select></br>
+  </el-select>
+  </el-form-item>
 
-  <el-input placeholder="Décrivez le plat que vous allez préparer" v-model="form.plat"></el-input>
+  <el-form-item label="Plat">
+    <el-input placeholder="Titre du Plat" v-model="form.plat">
+    </el-input>
+  </el-form-item>
 
-  <el-input placeholder="Lieux du repas" v-model="form.lieu"></el-input>
+  <el-form-item label="Description du plat">
+    <el-input
+  type="textarea"
+  :rows="5"
+  placeholder="Décrivez votre plat en quelques mots"
+  v-model="form.description">
+</el-input>
+</el-form-item>
 
+
+  <el-form-item label="Lieu">
+    <el-input placeholder="Lieux du repas" v-model="form.lieu"></el-input>
+  </el-form-item>
+
+<el-form-item label="Date">
  <el-date-picker
       v-model="form.date"
       type="datetime"
       placeholder="Select date and time">
     </el-date-picker>
-    </br>
+    </el-form-item>
+    
 
-    Sélectionnez le nombre minimum de personnes souhaité :
-  <el-select v-model="value" placeholder="Select">
+   <el-form-item label="Nombre minimum de Personne"> 
+  <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
     <el-option
-      v-for="item in options"
+      v-for="item in minvalues"
+      :key="item"
+      :label="item + ' personne'+ (item>1?'s':'') "
+      :value="item">
+    </el-option>
+  </el-select>
+  </el-form-item>
+
+ <!-- <el-form-item label="Nombre maximum de Personne">
+   <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
+    <el-option
+      v-for="item in max"
       :key="item.value"
       :label="item.label"
       :value="item.value">
     </el-option>
-  </el-select></br>
+  </el-select>
+  </el-form-item>-->
 
-  Selectionnez le nombre maximum de personnes souhaité :
-    </br><el-button type="primary" @click="onSubmit">Organiser</el-button>
-</el-form></br>
+  <el-form-item>
+    <el-button type="primary" @click="onSubmit">Organiser</el-button>
+  </el-form-item>
+</el-form>
+
 
 
 
@@ -52,32 +93,29 @@ export default {
       msg: "Welcome to Your Vue.js App",
 
       form: {
-      
         theme: null,
         plat: null,
         lieu: null,
         date: null,
         personne: 1,
+        description: null,
+        min:null,
+        max:null,
       },
       themes: [],
 
-      options: [{
-          value: 'Option1',
-          label: 'Option1'
-        }, {
-          value: 'Option2',
-          label: 'Option2'
-        }, {
-          value: 'Option3',
-          label: 'Option3'
-        }, {
-          value: 'Option4',
-          label: 'Option4'
-        }, {
-          value: 'Option5',
-          label: 'Option5'
-        }],
-        value: ''
+      minvalues: [1, 2, 3, 4, 5, 6],
+
+      maxvalues :[
+        {option1: '4 personnes'},
+        {option2: '5 personnes'},
+        {option3: '6 personnes'},
+        {option4: '7 personnes'},
+        {option5: '8 personnes'},
+
+      ]
+   
+      
     };
   },
   // Fetches posts when the component is created.
@@ -108,10 +146,12 @@ export default {
       console.log(this.form);
       axios
         .post(`http://localhost:8000/repas`, this.form)
-        
-        .then(response => {console.log(response)})
+
+        .then(response => {
+          console.log(response);
+        })
         .catch(e => {
-         console.log(e)
+          console.log(e);
         });
     }
   }
@@ -125,14 +165,18 @@ h2 {
   font-weight: normal;
 }
 ul {
-  list-style-type: none;
+  /*list-style-type: none;
   padding: 0;
 }
 li {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 10px;*/
 }
 a {
   color: #42b983;
+}
+
+.el-form{
+  width: 50%;
 }
 </style>

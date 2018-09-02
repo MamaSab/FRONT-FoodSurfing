@@ -4,7 +4,7 @@
 <el-row>
   <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
     <el-card :body-style="{ padding: '0px' }">
-      <img src="src\assets\13.png"><router-view/>
+      <img src="../assets/img/13.jpg">
       <div style="padding: 14px;">
         <span>Yummy hamburger</span>
         <div class="bottom clearfix">
@@ -17,17 +17,16 @@
 
 <el-row :gutter="20">
   <el-col :span="12">
-    <div img src="./assets/img/13.jpg">
-    <router-view/>
+    <div>
     <router-link to="/organisation">Organiser un Repas</router-link><br/>
     </div>
     </el-col>
   <el-col :span="12">
-    <div class="grid-content bg-purple">
-      <router-link to="/participation">Participer à un Repas</router-link>
-      </div>
-      </el-col>
-
+    <div class="grid-content bgimg1">
+      <router-link to="/participation" >Participer à un Repas</router-link>
+      <!-- <img src="../assets/img/13.jpg"> -->
+    </div>
+  </el-col>
 </el-row>
 
 
@@ -69,16 +68,16 @@ a {
 
 
 .bgimg1 {
-  background-image: 'url(\''+13.jpg'\')';
+  background-image: url('../assets/img/13.jpg');
 }
  .bg-purple {
-    background: #d3dce6;
+    /* background: #d3dce6; */
   }
 .bg-purple-light {
   background: #e5e9f2;
 }
 .grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+  border-radius: 25px;
+  min-height: 800px;
 }
 </style>
