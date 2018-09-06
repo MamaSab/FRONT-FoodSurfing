@@ -1,7 +1,7 @@
 <template>
 <div>
  
-<el-row>
+<!-- <el-row> TEST DE CARD
   <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
     <el-card :body-style="{ padding: '0px' }">
       <img src="../assets/img/13.jpg">
@@ -13,18 +13,18 @@
       </div>
     </el-card>
   </el-col>
-</el-row>
+</el-row> -->
 
 <el-row :gutter="20">
-  <el-col :span="12">
-    <div>
-    <router-link to="/organisation">Organiser un Repas</router-link><br/>
-    </div>
-    </el-col>
-  <el-col :span="12">
+  <el-col :span="12" >
     <div class="grid-content bgimg1">
-      <router-link to="/participation" >Participer à un Repas</router-link>
-      <!-- <img src="../assets/img/13.jpg"> -->
+       <router-link to="/organisation">Organiser un Repas</router-link><br/>
+    </div>
+  </el-col>
+  
+  <el-col :span="12" >
+    <div class="grid-content bgimg2">
+      <router-link to="/participation" class="typoRouter">Participer à un Repas</router-link>
     </div>
   </el-col>
 </el-row>
@@ -63,21 +63,27 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #fff;
 }
 
 
-.bgimg1 {
+ .bgimg1 {
   background-image: url('../assets/img/13.jpg');
+   background-position: center;
+   background-size: 700px 500px 
 }
- .bg-purple {
-    /* background: #d3dce6; */
-  }
-.bg-purple-light {
-  background: #e5e9f2;
+ 
+ .bgimg2 {
+  background-image: url('../assets/img/14.jpg');
+  background-position: center;
+  background-size: 700px 500px;
 }
+
 .grid-content {
-  border-radius: 25px;
-  min-height: 800px;
-}
+   min-height: 500px;
+  text-align:  center;
+
+  }
+
+
 </style>

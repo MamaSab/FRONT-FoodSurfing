@@ -1,88 +1,85 @@
 <template>
-<div>
-<ul>
+    <div>
+<!-- <ul> EXEMPLE AFFICHAGE BOUCLE, TABLEAU ITEM
   <li v-for="item in minvalues">{{item}} </li>
 </ul>
 
-<ul>
+<ul> TABLEAU OBJET
   <li v-for="item in maxvalues">{{item}} </li>
-</ul>
+</ul> -->
 
+    <el-form ref="form" :rules="rules" :model="form" label-width="300px">
+        <el-form-item label="Themes" prop="theme">
+          <el-select v-model="form.theme" placeholder="Choissisez votre theme">
+            <el-option
+              v-for="theme in themes"
+              :key="theme.idthemes"
+              :label="theme.nomTheme"
+              :value="theme.idthemes">
+            </el-option>
+          </el-select>
+        </el-form-item>
 
-<el-form ref="form" :model="form" label-width="300px">
-  <el-form-item label="Themes">
-   <el-select v-model="form.theme" placeholder="Choissisez votre theme">
-    <el-option
-      v-for="theme in themes"
-      :key="theme.idthemes"
-      :label="theme.nomTheme"
-      :value="theme.idthemes">
-    </el-option>
-  </el-select>
-  </el-form-item>
+      <el-form-item label="Plat" prop="plat">
+      <el-input placeholder="Titre du Plat" v-model="form.plat"></el-input>
+      </el-form-item>
 
-  <el-form-item label="Plat">
-    <el-input placeholder="Titre du Plat" v-model="form.plat">
-    </el-input>
-  </el-form-item>
+      <el-form-item label="Description du plat" prop="description">
+        <el-input
+          type="textarea"
+          :rows="5"
+          placeholder="Décrivez votre plat en quelques mots"
+          v-model="form.description">
+        </el-input>
+      </el-form-item>
 
-  <el-form-item label="Description du plat">
-    <el-input
-  type="textarea"
-  :rows="5"
-  placeholder="Décrivez votre plat en quelques mots"
-  v-model="form.description">
-</el-input>
-</el-form-item>
+      <el-form-item label="Lieu" prop="lieu">
+        <el-input placeholder="Lieux du repas" v-model="form.lieu"></el-input>
+      </el-form-item>
 
-
-  <el-form-item label="Lieu">
-    <el-input placeholder="Lieux du repas" v-model="form.lieu"></el-input>
-  </el-form-item>
-
-<el-form-item label="Date">
- <el-date-picker
-      v-model="form.date"
-      type="datetime"
-      placeholder="Select date and time">
-    </el-date-picker>
-    </el-form-item>
+      <el-form-item label="Date" prop="date">
+        <el-date-picker
+          v-model="form.date"
+          type="datetime"
+          placeholder="Select date and time">
+        </el-date-picker>
+      </el-form-item> 
     
+            
+        <el-form-item label="Nombre minimum de personne" prop="min"> 
+          <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
+            <el-option
+              v-for="item in minvalues"
+              :key="item"
+              :label="item + ' personne'+ (item > 1 ? 's' : '') "
+              :value="item">
+            </el-option>
+          </el-select>
+        </el-form-item>
+  
+        <el-form-item label="Nombre maximum de Personne" prop="max">
+          <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
+            <el-option
+                v-for="item in maxvalues"
+                :key="item"
+                :label="item +' personne'"
+                :value="item">
+            </el-option>
+          </el-select>
+        </el-form-item>     
+     
 
-   <el-form-item label="Nombre minimum de Personne"> 
-  <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
-    <el-option
-      v-for="item in minvalues"
-      :key="item"
-      :label="item + ' personne'+ (item>1?'s':'') "
-      :value="item">
-    </el-option>
-  </el-select>
-  </el-form-item>
-
- <!-- <el-form-item label="Nombre maximum de Personne">
-   <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
-    <el-option
-      v-for="item in max"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
-  </el-form-item>-->
-
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">Organiser</el-button>
-  </el-form-item>
-</el-form>
-
-
-
-
-<router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('form')">Organiser</el-button>
+         <el-button @click="resetForm('form')">Effacer</el-button>
+      </el-form-item>
+    
+    <router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
+</el-form>  
 
  </div>  
 </template>
+
 
 <script>
 import axios from "axios";
@@ -99,21 +96,46 @@ export default {
         date: null,
         personne: 1,
         description: null,
-        min:null,
-        max:null,
+        min: null,
+        max: null,
+       
       },
+
+      rules: {
+                theme: [
+            { required: true, message: 'Sélectionnez un thème ', trigger: 'change' } ,
+            
+          ],
+          plat: [
+            { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
+          
+          ],
+          description: [
+            { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
+          ],
+          lieu: [
+             { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
+           
+          ],
+           date: [
+            { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' }
+          ],
+          min: [
+            { required: true, message: 'Sélectionnez un nombre minimum de personne ', trigger: 'change' }
+          ],
+          max: [
+            { required: true, message: 'Sélectionnez un nombre maximum de personne', trigger: 'blur' }
+          ]
+
+      },
+
       themes: [],
 
       minvalues: [1, 2, 3, 4, 5, 6],
 
       maxvalues :[
-        {option1: '4 personnes'},
-        {option2: '5 personnes'},
-        {option3: '6 personnes'},
-        {option4: '7 personnes'},
-        {option5: '8 personnes'},
-
-      ]
+        4, 6, 8, 10
+      ],
    
       
     };
@@ -141,20 +163,34 @@ export default {
     // }
   },
 
-  methods: {
-    onSubmit() {
-      console.log(this.form);
+
+   methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+             console.log(this.form);
       axios
         .post(`http://localhost:8000/repas`, this.form)
 
         .then(response => {
-          console.log(response);
+          console.log('repas créer');
         })
         .catch(e => {
           console.log(e);
         });
-    }
-  }
+
+
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+    },
 };
 </script>
 
@@ -176,7 +212,10 @@ a {
   color: #42b983;
 }
 
-.el-form{
-  width: 50%;
+.el-form {
+  border: solid 1px green;
+  width: 70%;
 }
+
+
 </style>
