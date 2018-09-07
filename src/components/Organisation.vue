@@ -163,29 +163,29 @@ export default {
     // }
   },
 
-
    methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-             console.log(this.form);
-      axios
-        .post(`http://localhost:8000/repas`, this.form)
 
-        .then(response => {
-          console.log('repas créer');
-        })
-        .catch(e => {
-          console.log(e);
-        });
+          console.log(this.form);
+                axios
+                  .post(`http://localhost:8000/repas`, this.form)
 
+                  .then(response => {
+                    console.log(response);
+                  })
+                  .catch(e => {
+                    console.log(e);
+                  });
 
             alert('submit!');
           } else {
             console.log('error submit!!');
             return false;
           }
-        });
+        })
+        
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
@@ -213,9 +213,10 @@ a {
 }
 
 .el-form {
-  border: solid 1px green;
+
   width: 70%;
 }
+
 
 
 </style>
