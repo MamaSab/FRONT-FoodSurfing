@@ -3,9 +3,9 @@ import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
 import Organisation from '@/components/Organisation';
 import Participation from '@/components/Participation';
-import Utilisateurs from '@/components/Utilisateurs';
-import Login from "@/components/login.vue";
-import Secure from "@/components/secure.vue";
+// import Utilisateurs from '@/components/Utilisateurs';
+import Login from '@/components/login.vue';
+import Secure from '@/components/secure.vue';
 
 Vue.use(Router);
 
@@ -19,17 +19,17 @@ export default new Router({
     {
       path: '/',
       redirect: {
-          name: "login"
-      }
-  },
+        name: 'login',
+      },
+    },
     {
-      path: "/login",
-      name: "login",
+      path: '/login',
+      name: 'login',
       component: Login,
     },
     {
-      path: "/secure",
-      name: "secure",
+      path: '/secure',
+      name: 'secure',
       component: Secure,
     },
     {
