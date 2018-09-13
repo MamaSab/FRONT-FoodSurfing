@@ -11,9 +11,9 @@
           <el-select v-model="form.utilisateur" placeholder="Choissisez un utilisateur">
             <el-option
               v-for="utilisateur in utilisateurs"
-              :key="utilisateur.idPersonnes"
-              :label="utilisateur.idPersonnes"
-              :value="utilisateur.idPersonnes">
+              :key="utilisateur.nom"
+              :label="utilisateur.nom"
+              :value="utilisateur.nom">
             </el-option>
           </el-select>
         </el-form-item>

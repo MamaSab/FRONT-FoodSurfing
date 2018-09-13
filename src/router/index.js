@@ -4,8 +4,8 @@ import HelloWorld from '@/components/HelloWorld';
 import Organisation from '@/components/Organisation';
 import Participation from '@/components/Participation';
 // import Utilisateurs from '@/components/Utilisateurs';
-import Login from '@/components/login.vue';
-import Secure from '@/components/secure.vue';
+import Login from '@/components/Login';
+import Secure from '@/components/Secure';
 
 Vue.use(Router);
 
