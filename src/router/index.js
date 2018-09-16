@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Accueil from '@/components/Accueil';
 import Organisation from '@/components/Organisation';
 import Participation from '@/components/Participation';
 // import Utilisateurs from '@/components/Utilisateurs';
@@ -33,9 +33,9 @@ export default new Router({
       component: Secure,
     },
     {
-      path: '/helloWorld',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      path: '/accueil',
+      name: 'Accueil',
+      component: Accueil,
     },
     {
       path: '/organisation',

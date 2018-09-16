@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
 <!-- <ul> EXEMPLE AFFICHAGE BOUCLE, TABLEAU ITEM
   <li v-for="item in minvalues">{{item}} </li>
 </ul>
@@ -19,11 +19,9 @@
             </el-option>
           </el-select>
         </el-form-item>
-
       <el-form-item label="Plat" prop="plat">
-      <el-input placeholder="Titre du Plat" v-model="form.plat"></el-input>
+        <el-input placeholder="Titre du Plat" v-model="form.plat"></el-input>
       </el-form-item>
-
       <el-form-item label="Description du plat" prop="description">
         <el-input
           type="textarea"
@@ -32,62 +30,56 @@
           v-model="form.description">
         </el-input>
       </el-form-item>
-
       <el-form-item label="Lieu" prop="lieu">
         <el-input placeholder="Lieux du repas" v-model="form.lieu"></el-input>
       </el-form-item>
-
       <el-form-item label="Date" prop="date">
         <el-date-picker
           v-model="form.date"
           type="datetime"
           placeholder="Select date and time">
         </el-date-picker>
-      </el-form-item> 
-    
-            
-        <el-form-item label="Nombre minimum de personne" prop="min"> 
-          <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
-            <el-option
-              v-for="item in minvalues"
+      </el-form-item>  
+      <el-form-item label="Nombre minimum de personne" prop="min"> 
+        <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
+          <el-option
+            v-for="item in minvalues"
+            :key="item"
+            :label="item + ' personne'+ (item > 1 ? 's' : '') "
+            :value="item">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Nombre maximum de Personne" prop="max">
+        <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
+          <el-option
+              v-for="item in maxvalues"
               :key="item"
-              :label="item + ' personne'+ (item > 1 ? 's' : '') "
+              :label="item +' personne'"
               :value="item">
-            </el-option>
-          </el-select>
-        </el-form-item>
-  
-        <el-form-item label="Nombre maximum de Personne" prop="max">
-          <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
-            <el-option
-                v-for="item in maxvalues"
-                :key="item"
-                :label="item +' personne'"
-                :value="item">
-            </el-option>
-          </el-select>
-        </el-form-item>     
-     
-
+          </el-option>
+        </el-select>
+      </el-form-item>         
       <el-form-item>
         <el-button type="primary" @click="submitForm('form')">Organiser</el-button>
          <el-button @click="resetForm('form')">Effacer</el-button>
       </el-form-item>
-    
-    <router-link to="/helloWorld"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
-</el-form>  
-
- </div>  
+      <router-link to="/accueil">
+        <el-button round icon="el-icon-arrow-left">Retour</el-button>
+      </router-link>
+    </el-form>  
+  </div>  
 </template>
 
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+
 export default {
-  name: "Organisation",
+  name: 'Organisation',
   data() {
     return {
-      msg: "Welcome to Your Vue.js App",
+      msg: 'Welcome to Your Vue.js App',
 
       form: {
         theme: null,
@@ -114,7 +106,7 @@ export default {
             { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
           ],
           lieu: [
-             { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
+             { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' }
            
           ],
            date: [
@@ -134,7 +126,7 @@ export default {
       minvalues: [1, 2, 3, 4, 5, 6],
 
       maxvalues :[
-        4, 6, 8, 10
+        4, 5, 6, 7, 8, 10
       ],
    
       

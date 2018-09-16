@@ -1,17 +1,17 @@
 <template>
   <div>
     <router-link to="/">Retour</router-link>
- </div>  
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Organisation",
+  name: 'Particpation',
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
+      msg: 'Welcome to Your Vue.js App',
     };
-  }
+  },
 };
 </script>
 

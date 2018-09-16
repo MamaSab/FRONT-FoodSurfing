@@ -1,5 +1,5 @@
 <template>
-  <div>   
+  <div>
     <!-- <el-row> TEST DE CARD
       <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
         <el-card :body-style="{ padding: '0px' }">
@@ -27,19 +27,19 @@
     </el-row>
     <router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
     <!-- <h1>{{msg}}</h1>
-    v-model, pour lire et ecrire 
+    v-model, pour lire et ecrire
     <input type="text" v-model="msg"/>-->
-  </div>  
+  </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: 'Accueil',
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
+      msg: 'Welcome to Your Vue.js App',
     };
-  }
+  },
 };
 </script>
 

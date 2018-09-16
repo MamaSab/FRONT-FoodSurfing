@@ -1,12 +1,11 @@
 <template>
   <div id="app">
  <!-- <img src="./assets/img/13.jpg"> -->
-  
       <div id="nav">
           <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout
           </router-link>
       </div>
-    <router-view @authenticated="setAuthenticated" />    
+    <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
 
@@ -14,28 +13,28 @@
 export default {
   name: 'App',
   data() {
-      return {
-          authenticated: false,
-          mockAccount: {
-              nom: "a",
-              mot_de_passe: "a"
-          }
-      }
+    return {
+      authenticated: false,
+      mockAccount: {
+        nom: 'a',
+        mot_de_passe: 'a',
+      },
+    };
   },
   mounted() {
-      if(!this.authenticated) {
-          this.$router.replace({ name: "login" });
-      }
+    if (!this.authenticated) {
+      this.$router.replace({ name: 'login' });
+    }
   },
   methods: {
-      setAuthenticated(status) {
-          this.authenticated = status;
-      },
-      logout() {
-          this.authenticated = false;
-      }
-},
-}
+    setAuthenticated(status) {
+      this.authenticated = status;
+    },
+    logout() {
+      this.authenticated = false;
+    },
+  },
+};
 
 </script>
 
