@@ -2,10 +2,12 @@
   <div id="app">
  <!-- <img src="./assets/img/13.jpg"> -->
       <div id="nav">
-          <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Se déconnecter
+          <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
+          Se déconnecter
           </router-link>
       </div>
-      {{ personnes }}
+      {{ userConnected }}
+      {{ authenticated }}
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -16,7 +18,7 @@ export default {
   data() {
     return {
       authenticated: false,
-      personnes: {
+      userConnected: {
         idPersonnes:'',
         nom: '',
         prenom: '',
@@ -31,8 +33,14 @@ export default {
     }
   },
   methods: {
-    setAuthenticated(status) {
-      this.authenticated = status;
+    setAuthenticated(personne) {
+      if(personne) {
+        this.authenticated = true;
+        this.userConnected = personne;
+        console.log(personne);
+
+      }
+      
     },
     logout() {
       this.authenticated = false;

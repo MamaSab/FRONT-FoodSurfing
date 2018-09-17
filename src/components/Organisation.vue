@@ -6,7 +6,9 @@
 
 <ul> TABLEAU OBJET
   <li v-for="item in maxvalues">{{item}} </li>
-</ul> -->
+</ul> -->    
+
+      {{ form.personne }}
 
     <el-form ref="form" :rules="rules" :model="form" label-width="300px">
         <el-form-item label="Themes" prop="theme">
@@ -77,16 +79,16 @@ import axios from 'axios';
 
 export default {
   name: 'Organisation',
+  
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-
       form: {
         theme: null,
         plat: null,
         lieu: null,
         date: null,
-        personne: null,
+        personne: this.$parent.userConnected.idPersonnes,
         description: null,
         min: null,
         max: null,
@@ -156,6 +158,7 @@ export default {
   },
 
    methods: {
+     
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {

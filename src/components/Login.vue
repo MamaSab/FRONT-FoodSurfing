@@ -44,11 +44,11 @@ export default {
     login() {
       if (this.form.nom !== '' && this.form.mot_de_passe !== '') {
         axios.post('http://localhost:8000/login', this.form)
+
           .then(response => {
-              if (response.data != null) {
-                                      this.$emit('authenticated', true);
-                                      this.$emit('personnnes', response.data[0]);
-                                      console.log(response.data[0]);
+              if (response.data != 'erreur') {
+                                      console.log(response.data);
+                                      this.$emit('authenticated', response.data[0]);
                                       this.$router.replace({ name: "Accueil" });
                             }
                             else {
