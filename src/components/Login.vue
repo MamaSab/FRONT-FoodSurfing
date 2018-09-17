@@ -1,5 +1,6 @@
 <template>
     <div id="login">
+        <h1>Se connecter</h1>
         <el-form ref="form" :rules="rules" :model="form" label-width="300px">
             <el-form-item class="test" label="Nom">
                 <el-input placeholder="Entrez votre nom" v-model="form.nom" prop="nom"></el-input>
@@ -8,8 +9,7 @@
                 <el-input placeholder="Entrez votre mot de passe"  v-model="form.mot_de_passe" prop="mot_de_passe"></el-input>
             </el-form-item>
         </el-form>
-        <el-button round v-on:click="login()">Connexion <i class="el-icon-check el-icon-right"></i></el-button>
-        
+        <el-button round v-on:click="login()">Connexion <i class="el-icon-check el-icon-right"></i></el-button> 
     </div>
 </template>
 <!--if(!empty($_SESSION['error'])) {
@@ -82,7 +82,7 @@ font-size: 25px !important;
 }
 
 #login {
-        color: #59bf53 !important;
+        color: #ffffff;
         width: 800px;
         border: 1px solid #CCCCCC;
         border-radius: 4px;

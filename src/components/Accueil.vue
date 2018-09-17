@@ -13,6 +13,26 @@
         </el-card>
       </el-col>
     </el-row> -->
+    <el-row>
+      <el-table
+        border
+        :data="tableData"
+        style="width: 100%">
+        <el-table-column
+          prop="dateRepas"
+          label="Date"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="plat"
+          label="Nom"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          label="Actions">
+        </el-table-column>
+    </el-table>
+    </el-row>
     <el-row :gutter="20">
       <el-col :span="12" >
         <div class="grid-content bgimg1">
@@ -33,13 +53,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'Accueil',
+  name: "Accueil",
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: "Welcome to Your Vue.js App",
+      tableData: [
+        {plat: 'Test 1', date: '2018-09-27'},
+        {plat: 'Test 2', date: '2018-09-28'}
+      ]
     };
   },
+  beforeCreate () {
+    console.log('BeforeCreate')
+    axios.get('http://localhost:8000/personnes/1/repas?date=' + Date.now())
+    .then(response => {
+      console.log(response)
+      this.tableData = response.data
+    })
+  }
 };
 </script>
 
