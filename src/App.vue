@@ -2,9 +2,10 @@
   <div id="app">
  <!-- <img src="./assets/img/13.jpg"> -->
       <div id="nav">
-          <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout
+          <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Se déconnecter
           </router-link>
       </div>
+      {{ personnes }}
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -15,9 +16,12 @@ export default {
   data() {
     return {
       authenticated: false,
-      mockAccount: {
-        nom: 'a',
-        mot_de_passe: 'a',
+      personnes: {
+        idPersonnes:'',
+        nom: '',
+        prenom: '',
+        ville: '',
+        age: '',
       },
     };
   },

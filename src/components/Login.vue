@@ -1,10 +1,10 @@
 <template>
     <div id="login">
         <el-form ref="form" :rules="rules" :model="form" label-width="300px">
-            <el-form-item label="Nom">
+            <el-form-item class="test" label="Nom">
                 <el-input placeholder="Entrez votre nom" v-model="form.nom" prop="nom"></el-input>
             </el-form-item>
-            <el-form-item label="Mot de Passe">
+            <el-form-item class="test" label="Mot de Passe">
                 <el-input placeholder="Entrez votre mot de passe"  v-model="form.mot_de_passe" prop="mot_de_passe"></el-input>
             </el-form-item>
         </el-form>
@@ -45,8 +45,10 @@ export default {
       if (this.form.nom !== '' && this.form.mot_de_passe !== '') {
         axios.post('http://localhost:8000/login', this.form)
           .then(response => {
-              if (response.data === 'ok') {
+              if (response.data != null) {
                                       this.$emit('authenticated', true);
+                                      this.$emit('personnnes', response.data[0]);
+                                      console.log(response.data[0]);
                                       this.$router.replace({ name: "Accueil" });
                             }
                             else {
@@ -71,15 +73,29 @@ export default {
 <style scoped>
 
 .el-form {
-
-  width: 70%;
+  width: 80%;
+    
 }
-     /* #login {
-        width: 500px;
+.el-form-item__label {
+font-size: 25px !important;
+  color: #59bf53 !important;
+}
+
+#login {
+        color: #59bf53 !important;
+        width: 800px;
         border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
+        border-radius: 4px;
+        background-image: url("../assets/img/3.jpg");;
         margin: auto;
         margin-top: 200px;
-        padding: 20px;
-    } */
+        padding: 40px 20px 20px 20px;
+    }
+
+    .test {
+ font-size: 25px !important;
+  color: #59bf53 !important;
+}
+
+
 </style>

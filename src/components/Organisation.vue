@@ -86,7 +86,7 @@ export default {
         plat: null,
         lieu: null,
         date: null,
-        personne: 1,
+        personne: null,
         description: null,
         min: null,
         max: null,
@@ -171,7 +171,7 @@ export default {
                     console.log(e);
                   });
 
-            alert('submit!');
+            alert('Repas Créer!');
           } else {
             console.log('error submit!!');
             return false;
