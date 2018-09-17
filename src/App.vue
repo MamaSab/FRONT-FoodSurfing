@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       authenticated: false,
-      personnes: {
+      userConnected: {
         idPersonnes:'',
         nom: '',
         prenom: '',
@@ -31,8 +31,11 @@ export default {
     }
   },
   methods: {
-    setAuthenticated(status) {
-      this.authenticated = status;
+    setAuthenticated(personne) {
+      if(personne) {
+          this.authenticated = true
+          this.userConnected = personne
+      }
     },
     logout() {
       this.authenticated = false;

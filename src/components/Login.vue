@@ -46,8 +46,8 @@ export default {
         axios.post('http://localhost:8000/login', this.form)
           .then(response => {
               if (response.data != null) {
-                                      this.$emit('authenticated', true);
-                                      this.$emit('personnnes', response.data[0]);
+                                      this.$emit('authenticated', response.data[0]);
+                                      //this.$emit('personnnes', response.data[0]);
                                       console.log(response.data[0]);
                                       this.$router.replace({ name: "Accueil" });
                             }
