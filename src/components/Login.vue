@@ -2,7 +2,7 @@
     <div id="login">
       <h1>Se connecter</h1>
         <el-form ref="form"  :model="form" label-width="300px">
-              <el-form-item class="label-nom" label="Nom" style="color:red;">
+              <el-form-item class="label-nom" label="Nom">
                 <el-input placeholder="Entrez votre nom" v-model="form.nom"></el-input>
               </el-form-item>
               <el-form-item class="label-nom" label="Mot de Passe">
@@ -63,6 +63,7 @@ export default {
 .el-form {
   width: 80%;
   border: solid 1px;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.7);
   margin: 20px auto;
   padding-top: 20px;
@@ -72,7 +73,7 @@ export default {
 #login {
   color: white;
   width: 800px;
-  border: 1px solid #af0303;
+  border: 1px solid #ffffff;
   border-radius: 4px;
   background-image: url("../assets/img/3.jpg");
   margin: auto;

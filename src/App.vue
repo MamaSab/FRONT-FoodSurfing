@@ -62,10 +62,11 @@ export default {
   margin: auto; */
 }
 
-  /* body {
-        background-color: #F0F0F0;
+  body {
+        background-color: rgb(245, 247, 242);
     }
-    h1 {
+
+    /* h1 {
         padding: 0;
         margin-top: 0;
     } */
