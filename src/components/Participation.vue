@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-link to="/">Retour</router-link>
+    <router-link to="/accueil">
+        <el-button round icon="el-icon-arrow-left">Retour</el-button>
+    </router-link>
   </div>
 </template>
 
