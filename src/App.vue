@@ -6,8 +6,8 @@
           Se déconnecter
           </router-link>
       </div>
-      {{ userConnected }}
-      {{ authenticated }}
+      <!-- {{ userConnected }}
+      {{ authenticated }} -->
     <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     return {
       authenticated: false,
       userConnected: {
-        idPersonnes:'',
+        idPersonnes: '',
         nom: '',
         prenom: '',
         ville: '',
@@ -34,13 +34,11 @@ export default {
   },
   methods: {
     setAuthenticated(personne) {
-      if(personne) {
+      if (personne) {
         this.authenticated = true;
         this.userConnected = personne;
-        console.log(personne);
-
+        // console.log(personne);
       }
-
     },
     logout() {
       this.authenticated = false;

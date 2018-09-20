@@ -6,9 +6,9 @@
 
 <ul> TABLEAU OBJET
   <li v-for="item in maxvalues">{{item}} </li>
-</ul> -->    
+</ul> -->
 
-      {{ form.personne }}
+      <!-- {{ form.personne }} -->
 
     <el-form ref="form" :rules="rules" :model="form" label-width="300px">
         <el-form-item label="Themes" prop="theme">
@@ -41,8 +41,8 @@
           type="datetime"
           placeholder="Select date and time">
         </el-date-picker>
-      </el-form-item>  
-      <el-form-item label="Nombre minimum de personne" prop="min"> 
+      </el-form-item>
+      <el-form-item label="Nombre minimum de personne" prop="min">
         <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
           <el-option
             v-for="item in minvalues"
@@ -61,7 +61,7 @@
               :value="item">
           </el-option>
         </el-select>
-      </el-form-item>         
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('form')">Organiser</el-button>
          <el-button @click="resetForm('form')">Effacer</el-button>
@@ -69,8 +69,8 @@
       <router-link to="/accueil">
         <el-button round icon="el-icon-arrow-left">Retour</el-button>
       </router-link>
-    </el-form>  
-  </div>  
+    </el-form>
+  </div>
 </template>
 
 
@@ -79,7 +79,7 @@ import axios from 'axios';
 
 export default {
   name: 'Organisation',
-  
+
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -92,24 +92,24 @@ export default {
         description: null,
         min: null,
         max: null,
-       
+
       },
 
       rules: {
                 theme: [
             { required: true, message: 'Sélectionnez un thème ', trigger: 'change' } ,
-            
+
           ],
           plat: [
             { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
-          
+
           ],
           description: [
             { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
           ],
           lieu: [
              { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' }
-           
+
           ],
            date: [
             { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' }
@@ -130,8 +130,8 @@ export default {
       maxvalues :[
         4, 5, 6, 7, 8, 10
       ],
-   
-      
+
+
     };
   },
   // Fetches posts when the component is created.
@@ -158,7 +158,7 @@ export default {
   },
 
    methods: {
-     
+
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -180,7 +180,7 @@ export default {
             return false;
           }
         })
-        
+
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();

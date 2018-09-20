@@ -60,6 +60,7 @@ export default {
 
 <style scoped>
 
+
 .el-form {
   width: 80%;
   border: solid 1px;

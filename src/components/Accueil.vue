@@ -84,7 +84,7 @@
                         width="180">
                         <template slot-scope="scope">
                           <el-button @click="editRepas(scope)" type="primary" icon="el-icon-edit" circle></el-button>
-                          <el-button @click="deleteRepas" type="danger" icon="el-icon-delete" circle></el-button>
+                          <el-button @click="deleteRepas"  type="danger" icon="el-icon-delete" circle></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -98,7 +98,7 @@
     <router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
 
     <el-dialog
-      title="Tips"
+      title="Modification de votre repas"
       :visible.sync="dialogVisible"
       width="80%"
       :before-close="handleClose">
@@ -154,13 +154,9 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('form')">Organiser</el-button>
+      <!-- <el-form-item>
          <el-button @click="resetForm('form')">Effacer</el-button>
-      </el-form-item>
-      <router-link to="/accueil">
-        <el-button round icon="el-icon-arrow-left">Retour</el-button>
-      </router-link>
+      </el-form-item> -->
     </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">Cancel</el-button>
@@ -256,7 +252,8 @@ export default {
       this.tableData = response.data
     })
   },
-    methods: {
+    methods:
+    {
       editRepas(repas) {
         console.log('repas', repas);
         axios
@@ -264,9 +261,11 @@ export default {
           .then(response => {
             // JSON responses are automatically parsed.
             this.themes = response.data;
-            //this.form = repas
+            //this.form = repas FONCTIONNE POUR RECUPERER LES DATAS MAIS PAS LES MODIFIER DANS LE SELECT
             this.form.id = repas.idrepas
             this.form.plat = repas.plat
+            this.form.lieu = repas.lieu
+            this.form.description = repas.description
             this.form.theme = repas.themes_idthemes
             this.form.date = repas.dateRepas
             this.form.min = repas.nombre_minimum_personne
@@ -280,12 +279,38 @@ export default {
 
 
       },
+
       deleteRepas() {
+                  console.log(this.form);
+                axios
+                  .delete('http://localhost:8000/repas/' + this.form.id, this.form)
+
+                  console.log(delete('http://localhost:8000/repas/' + this.form.id, this.form))
+
+                  .then(response => {
+                    console.log('response', response);
+                    alert('Repas supprimé');
+
+                  })
+                  .catch(e => {
+                    console.log(e);
+                  });
+      },
+
+      handleClose(done) {
+         this.$confirm('Êtes-vous sûr(e) de vouloir annuler votre modification ?')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
 
       },
-      handleClose() {
 
-      },
+      //  resetForm(formName) {
+      //   this.$refs[formName].resetFields();
+      // },
+
+
       submit() {
 
 
@@ -295,14 +320,12 @@ export default {
 
                   .then(response => {
                     console.log('response', response);
+                    alert('Repas modifié!');
+
                   })
                   .catch(e => {
                     console.log(e);
                   });
-
-            alert('Repas modifié!');
-
-
       }
     },
 };
@@ -330,7 +353,7 @@ a {
   background-image: url("../assets/img/13.jpg");
   background-position: center;
   background-size: 700px 500px;
-  border: 1px solid #af0303;
+  border: 1px solid #ffffff;
   border-radius: 4px;
 }
 
@@ -338,12 +361,15 @@ a {
   background-image: url("../assets/img/14.jpg");
   background-position: center;
   background-size: 700px 500px;
-  border: 1px solid #af0303;
+  border: 1px solid #ffffff;
   border-radius: 4px;
 }
 
 .grid-content {
-  min-height: 500px;
+  /* margin-left: 20px; */
+
+  height: 300px;
+  width: 90%;
   text-align: center;
 }
 
