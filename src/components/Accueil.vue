@@ -280,13 +280,15 @@ export default {
 
       },
 
-      deleteRepas() {
-                  console.log(this.form);
+      deleteRepas(idrepas) {
+
+                  console.log('http://localhost:8000/repas/'+ idrepas);
+                  console.log('delete', idrepas);
                 axios
-                  .delete('http://localhost:8000/repas/' + this.form.id, this.form)
-
-                  console.log(delete('http://localhost:8000/repas/' + this.form.id, this.form))
-
+                  .delete('http://localhost:8000/repas/'+ idrepas) //dans in delete seul le er argument est nécessaire
+                  //structure: axios.Methode().then().catch()
+                  // console.log(delete('http://localhost:8000/repas/' + this.form.id, this.form))NE PAS METTRE UN CONSOLE.LOG ICI
+                  //console.log, avant axios, ou dans le then() ou dans le catch()
                   .then(response => {
                     console.log('response', response);
                     alert('Repas supprimé');
