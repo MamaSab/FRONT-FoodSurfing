@@ -52,16 +52,15 @@
                         width="180">
                         <template slot-scope="scope">
                           <el-button @click.native.prevent="editRepas(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
-                          <el-button @click="deleteRepas" type="danger" icon="el-icon-delete" circle></el-button>
+                          <el-button @click.native.prevent="deleteRepas(scope.row)" type="danger" icon="el-icon-delete" circle></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
               </el-row>
-
             </div>
           </el-col>
         <el-col :span="12" >
-        <div>
+          <div>
             <h2>Là où je vais manger </h2>
               <el-row>
                 <el-table
@@ -75,7 +74,7 @@
                     </el-table-column>
                     <el-table-column
                       prop="plat"
-                      label="Nom"
+                      label="Nom du Plat"
                       width="200">
                     </el-table-column>
                     <el-table-column
@@ -83,8 +82,8 @@
                         label="Actions"
                         width="180">
                         <template slot-scope="scope">
-                          <el-button @click="editRepas(scope)" type="primary" icon="el-icon-edit" circle></el-button>
-                          <el-button @click="deleteRepas"  type="danger" icon="el-icon-delete" circle></el-button>
+                          <el-button @click="editRepas(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
+                          <el-button @click="deleteRepas(scope.row)"  type="danger" icon="el-icon-delete" circle></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -171,7 +170,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   name: 'Accueil',
   data() {
@@ -195,23 +193,19 @@ export default {
         description: null,
         min: null,
         max: null,
-
       },
       rules: {
                 theme: [
             { required: true, message: 'Sélectionnez un thème ', trigger: 'change' } ,
-
           ],
           plat: [
             { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
-
           ],
           description: [
             { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
           ],
           lieu: [
              { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' }
-
           ],
            date: [
             { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' }
@@ -222,38 +216,37 @@ export default {
           max: [
             { required: true, message: 'Sélectionnez un nombre maximum de personne', trigger: 'blur' }
           ]
-
       },
-
       themes: [],
-
       minvalues: [1, 2, 3, 4, 5, 6],
-
       maxvalues :[
         4, 5, 6, 7, 8, 10
       ],
     };
   },
   beforeMount() {
-    console.log('BeforeCreate');
-    // console.log('userConnected');
-    // this.dT = new Date().getTime();
-    // console.log(this.dT);
-
-    // var myDate=new Date(Date.now());
-    // var myTs=Math.floor(myDate.getTime() / 1000);
-
-    let date = new Date().toISOString().split('T')[0]
-    console.log('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/repas?date=' + date);
-
-   axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/repas?date=' + date)
-    .then(response => {
-      console.log(response)
-      this.tableData = response.data
-    })
+        console.log('BeforeCreate');
+        // console.log('userConnected');
+        // this.dT = new Date().getTime();
+        // console.log(this.dT);
+        // var myDate=new Date(Date.now());
+        // var myTs=Math.floor(myDate.getTime() / 1000);
+        let date = new Date().toISOString().split('T')[0]
+        this.recup();
   },
+
     methods:
     {
+      //creation d'une fonction de recuperation des données qu'on va utiliser dans nos methodes delet et submit
+       recup : function(){
+                            let date = new Date().toISOString().split('T')[0]
+                    axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/repas?date=' + date)
+                      .then(response => {
+                        this.tableData = response.data
+                      })
+      },
+
+
       editRepas(repas) {
         console.log('repas', repas);
         axios
@@ -276,53 +269,49 @@ export default {
           .catch(e => {
             this.errors.push(e);
           });
-
-
       },
 
-      deleteRepas(idrepas) {
+      deleteRepas(repas) {
+                  console.log('repas on rentre dans la methode delete')
 
-                  console.log('http://localhost:8000/repas/'+ idrepas);
-                  console.log('delete', idrepas);
-                axios
-                  .delete('http://localhost:8000/repas/'+ idrepas) //dans in delete seul le er argument est nécessaire
-                  //structure: axios.Methode().then().catch()
-                  // console.log(delete('http://localhost:8000/repas/' + this.form.id, this.form))NE PAS METTRE UN CONSOLE.LOG ICI
-                  //console.log, avant axios, ou dans le then() ou dans le catch()
+
+                  // console.log('http://localhost:8000/repas/' + repas.id);
+
+                axios.delete('http://localhost:8000/repas/' + repas.idrepas)
+
                   .then(response => {
-                    console.log('response', response);
-                    alert('Repas supprimé');
+                    // console.log('response', response);
+                    console.log(response)
+                    alert('Repas supprimé de la table');
 
                   })
                   .catch(e => {
-                    console.log(e);
-                  });
-      },
+                    alert('Le repas n\'a pas pu être supprimé');
 
+                  });
+
+
+
+
+      },
       handleClose(done) {
          this.$confirm('Êtes-vous sûr(e) de vouloir annuler votre modification ?')
           .then(_ => {
             done();
           })
           .catch(_ => {});
-
       },
-
       //  resetForm(formName) {
       //   this.$refs[formName].resetFields();
       // },
-
-
       submit() {
-
-
           console.log(this.form);
                 axios
                   .put('http://localhost:8000/repas/' + this.form.id, this.form)
-
                   .then(response => {
                     console.log('response', response);
                     alert('Repas modifié!');
+                                this.recup();
 
                   })
                   .catch(e => {
@@ -350,7 +339,6 @@ li {
 a {
   color: #fff;
 }
-
 .bgimg1 {
   background-image: url("../assets/img/13.jpg");
   background-position: center;
@@ -358,7 +346,6 @@ a {
   border: 1px solid #ffffff;
   border-radius: 4px;
 }
-
 .bgimg2 {
   background-image: url("../assets/img/14.jpg");
   background-position: center;
@@ -366,20 +353,16 @@ a {
   border: 1px solid #ffffff;
   border-radius: 4px;
 }
-
 .grid-content {
   /* margin-left: 20px; */
-
   height: 300px;
   width: 90%;
   text-align: center;
 }
-
-el-table{
+el-table {
   width: 500px;
 }
-
 .entete {
-  display:inline-block;
+  /* display:inline-block; */
 }
 </style>
