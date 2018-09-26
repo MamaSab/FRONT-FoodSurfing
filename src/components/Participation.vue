@@ -15,13 +15,14 @@
                   width="180">
                 </el-table-column>
                 <el-table-column
-                  fixed="right"
-                  label="Actions"
-                   width="180">
+                  prop="lieu"
+                  label="Lieu"
+                  width="220">
                 </el-table-column>
                 <el-table-column
-                  prop="address"
-                  label="Address">
+                  fixed="right"
+                  label="S'inscrire"
+                   width="150">
                 </el-table-column>
               </el-table>
             </el-row>
@@ -30,7 +31,7 @@
         <el-col :span="12" >
           <div><h2> Sélectionnez dans la liste suivante, quelque chose à rapporter  : </h2>
             <el-form ref="form" :model="form" label-width="60px">
-              <el-form-item label="Ajout">
+              <el-form-item  label="Ajout">
                 <el-select v-model="form.ajout" placeholder="Choissisez ce que vous rapportez">
                   <el-option
                     v-for="ajout in ajouts"
@@ -64,10 +65,19 @@ export default {
       tableData: [],
       form: {
         ajout: null,
+        date: null,
       },
       ajouts: [],
     };
+
   },
+
+  beforeMount() {
+        console.log('BeforeCreate');
+        let date = new Date().toISOString().split('T')[0]
+        this.recup();
+  },
+
 
     beforeCreate() {
     axios
@@ -81,8 +91,20 @@ export default {
         console.log('ça marche pas essai encore')
         this.errors.push(e);
       });
-    }
+    },
 
+    methods:
+    {
+      recup : function(){
+                          let date = new Date().toISOString().split('T')[0]
+        console.log('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/autre')
+        axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/autre')
+                      .then(response => {
+                        this.tableData = response.data
+
+                      })
+      }
+    },
 };
 </script>
 
@@ -90,17 +112,8 @@ export default {
 <style scoped>
 
 
-.el-checkbox-group {
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-}
-.el-checkbox+.el-checkbox {
-    margin-left: 0px,
-}
-
-.el-select {
-  box-sizing: border-box;
+.el-input__inner{
+  width: 350px;
 }
 
 </style>

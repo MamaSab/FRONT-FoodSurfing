@@ -43,13 +43,13 @@
                     </el-table-column>
                     <el-table-column
                       prop="plat"
-                      label="Nom"
+                      label="Nom du Plat"
                       width="200">
                     </el-table-column>
                     <el-table-column
                        fixed="right"
-                        label="Actions"
-                        width="180">
+                        label="Modifier ou Annuler"
+                        width="200">
                         <template slot-scope="scope">
                           <el-button @click.native.prevent="editRepas(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
                           <el-button @click.native.prevent="deleteRepas(scope.row)" type="danger" icon="el-icon-delete" circle></el-button>
@@ -80,7 +80,7 @@
                     <el-table-column
                        fixed="right"
                         label="Actions"
-                        width="180">
+                        width="160">
                         <template slot-scope="scope">
                           <el-button @click="editRepas(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
                           <el-button @click="deleteRepas(scope.row)"  type="danger" icon="el-icon-delete" circle></el-button>
@@ -239,6 +239,7 @@ export default {
     {
       //creation d'une fonction de recuperation des données qu'on va utiliser dans nos methodes delet et submit
        recup : function(){
+
                             let date = new Date().toISOString().split('T')[0]
                     axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/repas?date=' + date)
                       .then(response => {
