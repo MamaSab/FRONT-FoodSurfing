@@ -57,6 +57,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   name: 'Particpation',
   data() {
@@ -69,41 +70,40 @@ export default {
       },
       ajouts: [],
     };
-
   },
 
   beforeMount() {
-        console.log('BeforeCreate');
-        let date = new Date().toISOString().split('T')[0]
-        this.recup();
+    // console.log('BeforeCreate');
+    let date = new Date().toISOString().split('T')[0];
+    this.recup();
   },
 
 
-    beforeCreate() {
+  beforeCreate() {
     axios
-      .get(`http://localhost:8000/ajout`)
-      .then(response => {
+      .get('http://localhost:8000/ajout')
+      .then((response) => {
         // JSON responses are automatically parsed.
         this.ajouts = response.data;
-        console.log(this.ajouts);
+        // console.log(this.ajouts);
       })
-      .catch(e => {
-        console.log('ça marche pas essai encore')
+      .catch((e) => {
+        // console.log('ça marche pas essai encore');
         this.errors.push(e);
       });
-    },
+  },
 
-    methods:
+  methods:
     {
-      recup : function(){
-                          let date = new Date().toISOString().split('T')[0]
-        console.log('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/autre')
-        axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/autre')
-                      .then(response => {
-                        this.tableData = response.data
-
-                      })
-      }
+      recup: function () {
+        let date = new Date().toISOString().split('T')[0];
+        // console.log('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/autre')
+        axios
+          .get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/autre')
+          .then((response) => {
+            this.tableData = response.data;
+          });
+      },
     },
 };
 </script>

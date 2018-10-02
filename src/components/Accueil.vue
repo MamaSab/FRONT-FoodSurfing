@@ -51,8 +51,14 @@
                         label="Modifier ou Annuler"
                         width="200">
                         <template slot-scope="scope">
-                          <el-button @click.native.prevent="editRepas(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
-                          <el-button @click.native.prevent="deleteRepas(scope.row)" type="danger" icon="el-icon-delete" circle></el-button>
+                          <el-button @click.native.prevent="editRepas(scope.row)"
+                                     type="primary"
+                                     icon="el-icon-edit" circle>
+                          </el-button>
+                          <el-button @click.native.prevent="deleteRepas(scope.row)"
+                                     type="danger"
+                                     icon="el-icon-delete" circle>
+                          </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -82,8 +88,14 @@
                         label="Actions"
                         width="160">
                         <template slot-scope="scope">
-                          <el-button @click="editRepas(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
-                          <el-button @click="deleteRepas(scope.row)"  type="danger" icon="el-icon-delete" circle></el-button>
+                          <el-button @click="editRepas(scope.row)"
+                                     type="primary"
+                                     icon="el-icon-edit" circle>
+                          </el-button>
+                          <el-button @click="deleteRepas(scope.row)"
+                                     type="danger"
+                                     icon="el-icon-delete" circle>
+                          </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -91,11 +103,7 @@
             </div>
       </el-col>
     </el-row>
-
-
-
     <router-link to="/"><el-button round icon="el-icon-arrow-left">Retour</el-button></router-link>
-
     <el-dialog
       title="Modification de votre repas"
       :visible.sync="dialogVisible"
@@ -134,7 +142,8 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="Nombre minimum de personne" prop="min">
-        <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
+        <el-select v-model="form.min"
+                   placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
           <el-option
             v-for="item in minvalues"
             :key="item"
@@ -144,7 +153,8 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Nombre maximum de Personne" prop="max">
-        <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
+        <el-select v-model="form.max"
+                   placeholder="Selectionnez le nombre maximum de personnes souhaité :">
           <el-option
               v-for="item in maxvalues"
               :key="item"
@@ -170,13 +180,14 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   name: 'Accueil',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      nom:  this.$parent.userConnected.nom,
-      prenom:  this.$parent.userConnected.prenom,
+      nom: this.$parent.userConnected.nom,
+      prenom: this.$parent.userConnected.prenom,
       // dT: null,
       tableData: [
         // { plat: 'Test 1', date: '2018-09-27' },
@@ -195,130 +206,123 @@ export default {
         max: null,
       },
       rules: {
-                theme: [
-            { required: true, message: 'Sélectionnez un thème ', trigger: 'change' } ,
-          ],
-          plat: [
-            { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
-          ],
-          description: [
-            { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
-          ],
-          lieu: [
-             { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' }
-          ],
-           date: [
-            { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' }
-          ],
-          min: [
-            { required: true, message: 'Sélectionnez un nombre minimum de personne ', trigger: 'change' }
-          ],
-          max: [
-            { required: true, message: 'Sélectionnez un nombre maximum de personne', trigger: 'blur' }
-          ]
+        theme: [
+          { required: true, message: 'Sélectionnez un thème ', trigger: 'change' },
+        ],
+        plat: [
+          { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
+        ],
+        description: [
+          { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' },
+        ],
+        lieu: [
+          { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' },
+        ],
+        date: [
+          { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' },
+        ],
+        min: [
+          { required: true, message: 'Sélectionnez un nombre minimum de personne ', trigger: 'change' },
+        ],
+        max: [
+          { required: true, message: 'Sélectionnez un nombre maximum de personne', trigger: 'blur' },
+        ],
       },
       themes: [],
       minvalues: [1, 2, 3, 4, 5, 6],
-      maxvalues :[
-        4, 5, 6, 7, 8, 10
-      ],
+      maxvalues: [4, 5, 6, 7, 8, 10],
     };
   },
   beforeMount() {
-        console.log('BeforeCreate');
-        // console.log('userConnected');
-        // this.dT = new Date().getTime();
-        // console.log(this.dT);
-        // var myDate=new Date(Date.now());
-        // var myTs=Math.floor(myDate.getTime() / 1000);
-        let date = new Date().toISOString().split('T')[0]
-        this.recup();
+    // console.log('BeforeCreate');
+    // console.log('userConnected');
+    // this.dT = new Date().getTime();
+    // console.log(this.dT);
+    // var myDate=new Date(Date.now());
+    // var myTs=Math.floor(myDate.getTime() / 1000);
+    // let date = new Date().toISOString().split('T')[0]
+    this.recup();
   },
 
-    methods:
+  methods:
     {
-      //creation d'une fonction de recuperation des données qu'on va utiliser dans nos methodes delet et submit
-       recup : function(){
-
-                            let date = new Date().toISOString().split('T')[0]
-                    axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/repas?date=' + date)
-                      .then(response => {
-                        this.tableData = response.data
-                      })
+    // creation d'une fonction de recuperation des données
+    // qu'on va utiliser dans nos methodes delet et submit
+      recup: function () {
+        let date = new Date().toISOString().split('T')[0];
+        axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/repas?date=' + date)
+          .then((response) => {
+            this.tableData = response.data;
+          });
       },
 
 
       editRepas(repas) {
-        console.log('repas', repas);
+        // console.log('repas', repas);
         axios
-          .get(`http://localhost:8000/themes`)
-          .then(response => {
+          .get('http://localhost:8000/themes')
+          .then((response) => {
             // JSON responses are automatically parsed.
             this.themes = response.data;
-            //this.form = repas FONCTIONNE POUR RECUPERER LES DATAS MAIS PAS LES MODIFIER DANS LE SELECT
-            this.form.id = repas.idrepas
-            this.form.plat = repas.plat
-            this.form.lieu = repas.lieu
-            this.form.description = repas.description
-            this.form.theme = repas.themes_idthemes
-            this.form.date = repas.dateRepas
-            this.form.min = repas.nombre_minimum_personne
-            this.form.max = repas.nombre_maximum_personne
-            console.log(this.themes);
-            this.dialogVisible = true
+            // this.form = repas FONCTIONNE POUR RECUPERER LES DATAS
+            // MAIS PAS LES MODIFIER DANS LE SELECT
+            this.form.id = repas.idrepas;
+            this.form.plat = repas.plat;
+            this.form.lieu = repas.lieu;
+            this.form.description = repas.description;
+            this.form.theme = repas.themes_idthemes;
+            this.form.date = repas.dateRepas;
+            this.form.min = repas.nombre_minimum_personne;
+            this.form.max = repas.nombre_maximum_personne;
+            // console.log(this.themes);
+            this.dialogVisible = true;
           })
-          .catch(e => {
+          .catch((e) => {
             this.errors.push(e);
           });
       },
 
       deleteRepas(repas) {
-                  console.log('repas on rentre dans la methode delete')
+        // console.log('repas on rentre dans la methode delete')
+        // console.log('http://localhost:8000/repas/' + repas.id);
 
+        axios.delete('http://localhost:8000/repas/' + repas.idrepas)
 
-                  // console.log('http://localhost:8000/repas/' + repas.id);
-
-                axios.delete('http://localhost:8000/repas/' + repas.idrepas)
-
-                  .then(response => {
-                    // console.log('response', response);
-                    console.log(response)
-                    alert('Repas supprimé de la table');
-
-                  })
-                  .catch(e => {
-                    alert('Le repas n\'a pas pu être supprimé');
-
-                  });
-
-
-
-
+          .then((response) => {
+            // console.log('response', response);
+            // console.log(response)
+            this.$alert('Votre repas à bien été ANNULER', 'Repas ANNULER', {
+              confirmButtonText: 'Ok',
+            });
+            this.recup();
+          })
+          .catch((e) => {
+            this.$alert('Le repas n\'a pas pu être supprimé', 'Repas non annulé');
+          });
       },
+
       handleClose(done) {
-         this.$confirm('Êtes-vous sûr(e) de vouloir annuler votre modification ?')
-          .then(_ => {
+        this.$confirm('Êtes-vous sûr(e) de vouloir annuler votre modification ?')
+          .then((_) => {
             done();
           })
-          .catch(_ => {});
+          .catch((_) => {});
       },
       //  resetForm(formName) {
       //   this.$refs[formName].resetFields();
       // },
       submit() {
-          console.log(this.form);
-                axios
-                  .put('http://localhost:8000/repas/' + this.form.id, this.form)
-                  .then(response => {
-                    console.log('response', response);
-                    alert('Repas modifié!');
-                                this.recup();
-
-                  })
-                  .catch(e => {
-                    console.log(e);
-                  });
-      }
+        // console.log(this.form);
+        axios.put('http://localhost:8000/repas/' + this.form.id, this.form)
+          .then((response) => {
+            // console.log('response', response);
+            this.$alert('Repas modifié!', 'Votre repas à bien été modifié');
+            this.recup();
+          })
+          .catch((e) => {
+            // console.log(e);
+          });
+      },
     },
 };
 </script>

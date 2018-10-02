@@ -43,7 +43,8 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="Nombre minimum de personne" prop="min">
-        <el-select v-model="form.min" placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
+        <el-select v-model="form.min"
+                   placeholder="Sélectionnez le nombre minimum de personnes souhaité :">
           <el-option
             v-for="item in minvalues"
             :key="item"
@@ -53,7 +54,8 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Nombre maximum de Personne" prop="max">
-        <el-select v-model="form.max" placeholder="Selectionnez le nombre maximum de personnes souhaité :">
+        <el-select v-model="form.max"
+                   placeholder="Selectionnez le nombre maximum de personnes souhaité :">
           <el-option
               v-for="item in maxvalues"
               :key="item"
@@ -96,54 +98,46 @@ export default {
       },
 
       rules: {
-                theme: [
-            { required: true, message: 'Sélectionnez un thème ', trigger: 'change' } ,
-
-          ],
-          plat: [
-            { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
-
-          ],
-          description: [
-            { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' }
-          ],
-          lieu: [
-             { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' }
-
-          ],
-           date: [
-            { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' }
-          ],
-          min: [
-            { required: true, message: 'Sélectionnez un nombre minimum de personne ', trigger: 'change' }
-          ],
-          max: [
-            { required: true, message: 'Sélectionnez un nombre maximum de personne', trigger: 'blur' }
-          ]
-
+        theme: [
+          { required: true, message: 'Sélectionnez un thème ', trigger: 'change' },
+        ],
+        plat: [
+          { required: true, message: 'Donnez un nom à votre repas', trigger: 'change' },
+        ],
+        description: [
+          { required: true, message: 'Décrivez votre repas en quelques lignes', trigger: 'change' },
+        ],
+        lieu: [
+          { required: true, message: 'Donnez un lieux de rendez-vous', trigger: 'change' },
+        ],
+        date: [
+          { type: 'date', required: true, message: 'Sélectionnez une date', trigger: 'change' },
+        ],
+        min: [
+          { required: true, message: 'Sélectionnez un nombre minimum de personne ', trigger: 'change' },
+        ],
+        max: [
+          { required: true, message: 'Sélectionnez un nombre maximum de personne', trigger: 'blur' },
+        ],
       },
 
       themes: [],
 
       minvalues: [1, 2, 3, 4, 5, 6],
 
-      maxvalues :[
-        4, 5, 6, 7, 8, 10
-      ],
-
-
+      maxvalues: [4, 5, 6, 7, 8, 10],
     };
   },
   // Fetches posts when the component is created.
   beforeCreate() {
     axios
-      .get(`http://localhost:8000/themes`)
-      .then(response => {
+      .get('http://localhost:8000/themes')
+      .then((response) => {
         // JSON responses are automatically parsed.
         this.themes = response.data;
-        console.log(this.themes);
+        // console.log(this.themes);
       })
-      .catch(e => {
+      .catch((e) => {
         this.errors.push(e);
       });
 
@@ -157,35 +151,34 @@ export default {
     // }
   },
 
-   methods: {
+  methods: {
 
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // console.log(this.form);
+          axios.post('http://localhost:8000/repas', this.form)
 
-          console.log(this.form);
-                axios
-                  .post(`http://localhost:8000/repas`, this.form)
+            .then((response) => {
+              // console.log(response);
+            })
+            .catch((e) => {
+              // console.log(e);
+            });
 
-                  .then(response => {
-                    console.log(response);
-                  })
-                  .catch(e => {
-                    console.log(e);
-                  });
-
-            alert('Repas Créer!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        })
-
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+          this.$alert('Repas Créer!', {
+            confirmButtonText: 'Ok',
+          });
+        } else {
+          // console.log('error submit!!');
+          return false;
+        }
+      });
     },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+  },
 };
 </script>
 
@@ -211,7 +204,4 @@ a {
 
   width: 70%;
 }
-
-
-
 </style>
