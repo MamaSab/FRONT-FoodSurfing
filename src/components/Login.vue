@@ -1,4 +1,5 @@
 <template>
+  <el-main>
     <div>
       <el-row>
         <el-col :offset="8" >
@@ -16,9 +17,9 @@
       :visible.sync="dialogVisible"
       width="80%"
       >
-      <el-form ref="form" status-icon :rules="rules" :model="form" label-width="300px">
-      <el-form-item label="Votre Nom d'Utilisateur" prop="nom">
-        <el-input placeholder="Entrez un nom d'utilisateur" v-model="form.nom"></el-input>
+      <el-form ref="form" :rules="rules" :model="form" label-width="300px">
+      <el-form-item label="Votre Nom d'Utilisateur" prop="nom2">
+        <el-input placeholder="Entrez un nom d'utilisateur"  v-model="form.nom2"></el-input>
       </el-form-item>
       <el-form-item label="Votre Prénom" prop="prenom">
         <el-input placeholder="Saisissez Votre Prénom" v-model="form.prenom">
@@ -52,14 +53,14 @@
 
       <div id="login">
         <h1>Se connecter</h1>
-          <el-form ref="form"  :model="form" label-width="300px">
+          <el-form ref="formlogin"  :model="formlogin" label-width="300px">
                 <el-form-item class="label-nom" label="Nom">
-                  <el-input placeholder="Entrez votre nom" v-model="form.nom"></el-input>
+                  <el-input placeholder="Entrez votre nom" v-model="formlogin.nom"></el-input>
                 </el-form-item>
                 <el-form-item class="label-nom" label="Mot de Passe">
                   <el-input placeholder="Entrez votre mot de passe"
                             type="password"
-                            v-model="form.mot_de_passe">
+                            v-model="formlogin.mot_de_passe">
                   </el-input>
               </el-form-item>
           </el-form>
@@ -69,7 +70,7 @@
 
       </div>
     </div>
-
+  </el-main>
 </template>
 <!--if(!empty($_SESSION['error'])) {
     echo $_SESSION['error'];
@@ -83,9 +84,9 @@ export default {
 
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password again'));
+        callback(new Error('Entrez le mot de passe à nouveau svp'));
       } else if (value !== this.form.mot_de_passe) {
-        callback(new Error('Two inputs don\'t match!'));
+        callback(new Error('Les deux entrées correspondent pas'));
       } else {
         callback();
       }
@@ -93,35 +94,60 @@ export default {
 
     var checkAge = (rule, value, callback) => {
        if (!value) {
-          return callback(new Error('Please input the age'));
+          return callback(new Error('Entrez votre age'));
         }
        setTimeout(() => {
           if (!Number.isInteger(value)) {
-            callback(new Error('Please input digits'));
+            callback(new Error('Entrez un nombre'));
           } else {
             if (value < 18) {
-              callback(new Error('Age must be greater than 18'));
+              callback(new Error('Votre devez être majeur'));
             } else {
               callback();
             }
           }
         }, 1000);
     };
+
+    var checkU = (rule, value, callback) => {
+      if (!value) {
+          return callback(new Error('Entrez votre nom'));
+        }else {
+          axios
+          .post('http://localhost:8000/register', this.form)
+
+          .then((response) => {
+            if (response.data.length>0) {
+              callback (new Error('Ce nom d\'utlisateur existe déjà'))
+            } else {
+               callback();
+            }
+          });
+
+        }
+
+    };
+
     return {
       dialogVisible: false,
       // handleClose:'',
       form: {
         id: '',
-        nom: '',
+        nom2: '',
         prenom: '',
         mot_de_passe: '',
         checkPass: '',
         ville: '',
         age: '',
       },
+      formlogin: {
+        id: '',
+        nom: '',
+        mot_de_passe: '',
+      },
       rules:  {
-      nom: [
-      { required: true, message: 'Veuillez saisir votre nom d\'utilisateur', trigger: 'change' },
+      nom2: [
+      { validator: checkU, trigger: 'change' },
       ],
       prenom: [
       { required: true, message: 'Veuillez saisir votre prénom', trigger: 'change' },
@@ -156,9 +182,9 @@ export default {
     // },
 
     login() {
-      if (this.form.nom !== '' && this.form.mot_de_passe !== '') {
+      if (this.formlogin.nom !== '' && this.formlogin.mot_de_passe !== '') {
         axios
-          .post('http://localhost:8000/login', this.form)
+          .post('http://localhost:8000/login', this.formlogin)
 
           .then((response) => {
             if (response.data !== 'erreur') {
@@ -183,22 +209,25 @@ export default {
     },
 
     submitForm(formUser) {
-      this.$refs[formUser].validate((valid) => {
-        if (valid) {
-          // console.log(this.form);
+
+      this.$refs[formUser].validate((test) => {
+        if (test) {
+                console.log(this.form),
+
           axios.post('http://localhost:8000/personne', this.form)
 
             .then((response) => {
-              // console.log(response);
+          console.log('trtrtrrt'+this.form);
             })
             .catch((e) => {
-              // console.log(e);
+               console.log(e);
             });
 
           this.$alert('Féliciations votre compte à bien été créer!', {
             confirmButtonText: 'Ok',
           });
         } else {
+          console.log('erreur');
             this.$alert('Votre inscription n\'a pas été prise en compte', {
             confirmButtonText: 'Ok',
           });

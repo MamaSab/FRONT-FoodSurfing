@@ -64,6 +64,11 @@ export default {
         background-color: rgb(245, 247, 242);
     }
 
+#nav {
+  padding-bottom: 20px;
+  display: flex;
+  float: right;
+}
     /* h1 {
         padding: 0;
         margin-top: 0;

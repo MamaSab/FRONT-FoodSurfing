@@ -17,7 +17,7 @@
    <el-row :gutter="20">
       <el-col :span="12" >
         <div class="grid-content bgimg1">
-          <router-link to="/organisation">Organiser un Repas</router-link><br/>
+          <router-link to="/organisation"> Organiser un Repas</router-link><br/>
         </div>
       </el-col>
       <el-col :span="12" >
@@ -71,10 +71,10 @@
               <el-row>
                 <el-table
                     border
-                    :data="tableData"
+                    :data="tableData2"
                     style="width: 100%">
                     <el-table-column
-                      prop="dateRepas"
+                      prop="dr"
                       label="Date"
                       width="200">
                     </el-table-column>
@@ -168,7 +168,7 @@
       </el-form-item> -->
     </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button @click="handleClose(); dialogVisible = false"> Annuler</el-button>
         <el-button type="primary" @click="submit(); dialogVisible = false">Confirm</el-button>
       </span>
     </el-dialog>
@@ -193,6 +193,11 @@ export default {
         // { plat: 'Test 1', date: '2018-09-27' },
         // { plat: 'Test 2', date: '2018-09-28' },
       ],
+      tableData2: [
+        // { plat :'test 3', dateRepas: '2018-10-30'},
+        // { plat :'test 4', dateRepas: '2018-11-15'},
+      ],
+
       dialogVisible: false,
       form: {
         id: null,
@@ -233,6 +238,7 @@ export default {
       maxvalues: [4, 5, 6, 7, 8, 10],
     };
   },
+
   beforeMount() {
     // console.log('BeforeCreate');
     // console.log('userConnected');
@@ -242,6 +248,9 @@ export default {
     // var myTs=Math.floor(myDate.getTime() / 1000);
     // let date = new Date().toISOString().split('T')[0]
     this.recup();
+    // console.log(this.tableData)
+    this.recup2();
+    console.log(this.tableData2)
   },
 
   methods:
@@ -256,6 +265,13 @@ export default {
           });
       },
 
+     recup2: function() {
+        axios.get('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/participe')
+        .then((response) => {
+          // console.log('http://localhost:8000/personnes/' + this.$parent.userConnected.idPersonnes + '/participe'),
+          this.tableData2 = response.data;
+        });
+      },
 
       editRepas(repas) {
         // console.log('repas', repas);
@@ -264,6 +280,7 @@ export default {
           .then((response) => {
             // JSON responses are automatically parsed.
             this.themes = response.data;
+            console.log(this.themes);
             // this.form = repas FONCTIONNE POUR RECUPERER LES DATAS
             // MAIS PAS LES MODIFIER DANS LE SELECT
             this.form.id = repas.idrepas;
@@ -306,7 +323,9 @@ export default {
           .then((_) => {
             done();
           })
-          .catch((_) => {});
+          .catch((_) => {
+            console.log('trouver une fonction pour rester sur el dialogue')
+          });
       },
       //  resetForm(formName) {
       //   this.$refs[formName].resetFields();
@@ -342,32 +361,37 @@ li {
   margin: 0 10px;
 } */
 a {
-  color: #fff;
+  color: rgba(255, 255, 255);
 }
+a:hover{
+color: rgb(135, 206, 147);
+}
+
 .bgimg1 {
   background-image: url("../assets/img/13.jpg");
   background-position: center;
   background-size: 700px 500px;
   border: 1px solid #ffffff;
-  border-radius: 4px;
 }
 .bgimg2 {
   background-image: url("../assets/img/14.jpg");
   background-position: center;
   background-size: 700px 500px;
   border: 1px solid #ffffff;
-  border-radius: 4px;
 }
 .grid-content {
   /* margin-left: 20px; */
+  border-radius: 100px;
   height: 300px;
   width: 90%;
   text-align: center;
+  font-size: 36px;
+  padding-top: 25px;
+
 }
 el-table {
   width: 500px;
 }
-.entete {
-  /* display:inline-block; */
-}
+
+
 </style>

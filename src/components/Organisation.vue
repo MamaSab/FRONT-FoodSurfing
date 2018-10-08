@@ -156,11 +156,11 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // console.log(this.form);
+          console.log(this.form);
           axios.post('http://localhost:8000/repas', this.form)
 
             .then((response) => {
-              // console.log(response);
+              console.log(response);
             })
             .catch((e) => {
               // console.log(e);
@@ -170,8 +170,12 @@ export default {
             confirmButtonText: 'Ok',
           });
         } else {
-          // console.log('error submit!!');
+          console.log('error submit!!');
+              this.$alert('Votre repas n\'a pas été enregistré', {
+            confirmButtonText: 'Ok',
+          });
           return false;
+
         }
       });
     },
