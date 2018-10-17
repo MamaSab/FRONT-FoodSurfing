@@ -1,6 +1,15 @@
 <template>
   <div>
-    <div class="entete"><h1> BIENVENUE </h1> {{prenom}} {{nom}}</div>
+     <el-row>
+      <el-col :span="6" :offset="1">
+        <h1> BIENVENUE </h1>
+      </el-col>
+      <el-col :span="8">
+        <div class="PrenomNom">
+         {{prenom}} {{nom}}
+        </div>
+      </el-col>
+    </el-row>
     <!-- <el-row :gutter="20">
       <el-col :span="12" > -->
        <el-main>
@@ -218,5 +227,13 @@ export default {
 .ajout{
   width: 80%;
 }
+
+.PrenomNom {
+  font-size:36px;
+  font-weight: 700;
+  color: rgb(71, 184, 86);
+  padding-top: 20px;
+}
+
 
 </style>

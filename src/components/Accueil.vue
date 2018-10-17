@@ -1,6 +1,16 @@
 <template>
   <div>
-    <div class="entete"><h1> BIENVENUE </h1> {{prenom}} {{nom}}</div>
+    <el-row>
+      <el-col :span="6" :offset="4">
+        <h1> BIENVENUE </h1>
+      </el-col>
+      <el-col :span="8">
+        <div class="PrenomNom">
+         {{prenom}} {{nom}}
+        </div>
+      </el-col>
+    </el-row>
+
     <!-- <el-row> TEST DE CARD
       <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
         <el-card :body-style="{ padding: '0px' }">
@@ -88,10 +98,6 @@
                         label="Actions"
                         width="160">
                         <template slot-scope="scope">
-                          <el-button @click="editRepas(scope.row)"
-                                     type="primary"
-                                     icon="el-icon-edit" circle>
-                          </el-button>
                           <el-button @click="deleteRepas(scope.row)"
                                      type="danger"
                                      icon="el-icon-delete" circle>
@@ -391,6 +397,13 @@ color: rgb(135, 206, 147);
 }
 el-table {
   width: 500px;
+}
+
+.PrenomNom {
+  font-size:36px;
+  font-weight: 700;
+  color: rgb(20, 148, 37);
+  padding-top: 20px;
 }
 
 

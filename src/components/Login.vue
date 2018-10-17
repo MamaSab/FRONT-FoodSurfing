@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+
     <div>
       <el-row>
         <el-col :offset="8" >
@@ -70,7 +70,7 @@
 
       </div>
     </div>
-  </el-main>
+
 </template>
 <!--if(!empty($_SESSION['error'])) {
     echo $_SESSION['error'];

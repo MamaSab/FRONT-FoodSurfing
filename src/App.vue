@@ -1,11 +1,18 @@
 <template>
+
   <div id="app">
  <!-- <img src="./assets/img/13.jpg"> -->
-      <div id="nav">
+      <el-row>
+        <el-col :span="10" :offset="9">
+          <img src="./assets/img/Logo5.png" id="logo">
+        </el-col>
+        <el-col :span="5">
           <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>
           Se déconnecter
           </router-link>
-      </div>
+        </el-col>
+      </el-row>
+
       <!-- {{ userConnected }}
       {{ authenticated }} -->
     <router-view @authenticated="setAuthenticated" />
@@ -64,11 +71,7 @@ export default {
         background-color: rgb(245, 247, 242);
     }
 
-#nav {
-  padding-bottom: 20px;
-  display: flex;
-  float: right;
-}
+
     /* h1 {
         padding: 0;
         margin-top: 0;
